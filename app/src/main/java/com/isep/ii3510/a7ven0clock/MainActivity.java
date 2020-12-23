@@ -14,14 +14,17 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import android.text.format.Time;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    Fragment activeFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,41 +32,46 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
         bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
 
-        loadFragments(new ClockFragment());
-
+        activeFragment = ClockFragment.getInstance();
+        loadFragments("CLOCK");
     }
 
 
     public Boolean onNavigationItemSelected(@NonNull MenuItem item){
-        Fragment fragment = null;
-
+        if(activeFragment != null){
+            activeFragment.onPause();
+        }
+        String tag = "";
         switch (item.getItemId()){
             case R.id.navigation_clock:
-                fragment = new ClockFragment();
+                activeFragment = ClockFragment.getInstance();
+                tag = "CLOCK";
                 break;
             case R.id.navigation_alarm:
-                fragment = new AlarmFragment();
+                activeFragment = AlarmFragment.newInstance("","");
+                tag = "ALARM";
                 break;
             case R.id.navigation_timer:
-                fragment = new TimerFragment();
+                activeFragment = TimerFragment.newInstance("","");
+                tag = "TIMER";
                 break;
             case R.id.navigation_settings:
-                fragment = new SettingsFragment();
+                activeFragment = SettingsFragment.newInstance("","");
+                tag = "SETTINGS";
                 break;
         }
 
-        return loadFragments(fragment);
+        return loadFragments(tag);
     }
 
-    private boolean loadFragments(Fragment fragment){
-        if(fragment == null){
+    private boolean loadFragments(String tag){
+        if(activeFragment == null){
             return false;
         }
         else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, activeFragment, tag).commit();
             return true;
         }
     }
