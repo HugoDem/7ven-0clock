@@ -4,7 +4,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
-import android.widget.TextClock;
 import android.widget.TimePicker;
 import android.widget.TextView;
 import android.media.Ringtone;
