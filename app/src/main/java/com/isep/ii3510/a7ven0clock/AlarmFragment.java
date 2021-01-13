@@ -1,17 +1,22 @@
 package com.isep.ii3510.a7ven0clock;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextClock;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.annotation.SuppressLint;
+import android.widget.TextClock;
+import android.widget.TimePicker;
+import android.widget.TextView;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,6 +68,7 @@ public class AlarmFragment extends Fragment {
         }
     }
 
+    @SuppressLint("CutPasteId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -103,19 +109,11 @@ public class AlarmFragment extends Fragment {
         String stringAlarmTime;
 
         if(alarmHours>12){
-            alarmHours = alarmHours – 12;
-            stringAlarmTime = alarmHours.toString().concat(“:”).concat(stringAlarmMinutes).concat(” PM”);
+            alarmHours = alarmHours - 12;
+            stringAlarmTime = alarmHours.toString().concat(":").concat(stringAlarmMinutes).concat("PM");
         }else{
-            stringAlarmTime = alarmHours.toString().concat(“:”).concat(stringAlarmMinutes).concat(” AM”);
+            stringAlarmTime = alarmHours.toString().concat(":").concat(stringAlarmMinutes).concat("AM”);
         }
         return stringAlarmTime;
     }
 }
-            }
-
-
-
-
-
-
-                    }
