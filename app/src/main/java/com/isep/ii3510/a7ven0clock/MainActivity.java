@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 tag = "ALARM";
                 break;
             case R.id.navigation_timer:
-                activeFragment = TimerFragment.newInstance("","");
+                activeFragment = TimerFragment.getInstance();
                 tag = "TIMER";
                 break;
             case R.id.navigation_settings:

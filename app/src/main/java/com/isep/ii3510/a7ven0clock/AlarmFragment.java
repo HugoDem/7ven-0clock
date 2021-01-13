@@ -1,4 +1,5 @@
 package com.isep.ii3510.a7ven0clock;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,7 +27,7 @@ import android.view.ViewGroup;
 public class AlarmFragment extends Fragment {
 
     TimePicker alarmTime;
-    TextClock currentTime;
+    TextView currentTime;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,8 +75,8 @@ public class AlarmFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_alarm, container, false);
 
-        alarmTime = (TimePicker) view.findViewById(R.id.);
-        currentTime = (TextView) view.findViewById(R.id.);
+        alarmTime = (TimePicker) view.findViewById(R.id.alarmToggle);
+        currentTime = (TextView) view.findViewById(R.id.alarmText);
         final Ringtone r = RingtoneManager.getRingtone(getContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
 
         Timer t = new Timer();
@@ -93,7 +94,6 @@ public class AlarmFragment extends Fragment {
         return view;
     }
 
-
     public String AlarmTime(){
 
         Integer alarmHours = alarmTime.getCurrentHour();
@@ -110,9 +110,9 @@ public class AlarmFragment extends Fragment {
 
         if(alarmHours>12){
             alarmHours = alarmHours - 12;
-            stringAlarmTime = alarmHours.toString().concat(":").concat(stringAlarmMinutes).concat("PM");
+            stringAlarmTime = alarmHours.toString().concat(":").concat(stringAlarmMinutes).concat(" PM");
         }else{
-            stringAlarmTime = alarmHours.toString().concat(":").concat(stringAlarmMinutes).concat("AM”);
+            stringAlarmTime = alarmHours.toString().concat(":").concat(stringAlarmMinutes).concat(" AM");
         }
         return stringAlarmTime;
     }

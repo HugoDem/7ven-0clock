@@ -1,17 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TimerFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:text="timer pouloulou win" />
+        android:layout_height="642dp"
+        android:layout_gravity="center_vertical">
+
+
+        <Button
+            android:id="@+id/startPauseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="1dp"
+            android:text="Start"
+            app:layout_constraintEnd_toStartOf="@+id/resetButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="205dp"
+            android:text="Reset"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/startPauseButton"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="287dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="112dp"
+            android:layout_marginBottom="21dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/resetButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.291">
+
+            <EditText
+                android:id="@+id/editTextForTime2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="21dp"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="00"
+                android:textSize="50sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/point"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_conversion_absoluteHeight="88dp"
+                tools:layout_conversion_absoluteWidth="64dp" />
+
+            <EditText
+                android:id="@+id/editTextForTime1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="00"
+                android:textSize="50sp"
+                android:visibility="visible"
+                app:layout_constraintBaseline_toBaselineOf="@+id/timerTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/point"
+                tools:layout_conversion_absoluteHeight="88dp"
+                tools:layout_conversion_absoluteWidth="64dp" />
+
+            <TextView
+                android:id="@+id/point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:text=":"
+                android:textSize="50sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/editTextForTime1"
+                app:layout_constraintEnd_toStartOf="@+id/editTextForTime1"
+                app:layout_constraintStart_toEndOf="@+id/editTextForTime2"
+                tools:layout_conversion_absoluteHeight="88dp"
+                tools:layout_conversion_absoluteWidth="127dp" />
+
+            <TextView
+                android:id="@+id/timerTextView"
+                android:layout_width="0dp"
+                android:layout_height="89dp"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:text="00:00"
+                android:textSize="50sp"
+                android:visibility="invisible"
+                app:layout_constraintBaseline_toBaselineOf="@+id/editTextForTime2"
+                app:layout_constraintEnd_toEndOf="@+id/editTextForTime1"
+                app:layout_constraintStart_toStartOf="@+id/editTextForTime2"
+                tools:layout_conversion_absoluteHeight="86dp"
+                tools:layout_conversion_absoluteWidth="127dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

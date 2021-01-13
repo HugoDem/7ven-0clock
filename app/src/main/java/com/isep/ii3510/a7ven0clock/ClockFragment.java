@@ -128,9 +128,10 @@ public class ClockFragment extends Fragment {
                 updateTimezoneView();
                 floatingBtn.setImageResource(R.drawable.more_time);
             }
-            else
+            else {
                 zoneListView.setVisibility(View.VISIBLE);
                 floatingBtn.setImageResource(R.drawable.check_icon);
+            }
         });
 
         return view;
