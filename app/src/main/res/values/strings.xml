@@ -22,6 +22,19 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_spotify">SpotifyActivity</string>
+    <string name="token">Access Token: %1$s</string>
+    <string name="warning_need_token">You need to request an access token first</string>
+    <string name="btn_get_profile">Get User Profile</string>
+    <string name="btn_req_code">Request Code</string>
+    <string name="btn_req_token">Request Token</string>
+    <string name="btn_clear_credentials">Clear WebView Credentials</string>
+    <string name="code">Code: %1$s</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 
 
 </resources>
