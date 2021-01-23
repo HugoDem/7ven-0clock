@@ -2,9 +2,11 @@ package com.isep.ii3510.a7ven0clock;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.LogPrinter;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,6 +64,7 @@ public class SpotifyActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(String.format(
                 Locale.US, "Spotify Auth Sample %s", com.spotify.sdk.android.auth.BuildConfig.VERSION_NAME));
         mTextView = (TextView) findViewById(R.id.text);
+        editText = findViewById(R.id.editText);
     }
 
     private static final String CLIENT_ID = "5b5e3a59e0ff47a6a30ad395c2bbe605";
@@ -72,24 +75,21 @@ public class SpotifyActivity extends AppCompatActivity {
     private String mAccessToken;
     private String mAccessCode;
     private Call mCall;
+    private EditText editText;
 
     protected void onDestroy() {
         cancelCall();
         super.onDestroy();
     }
 
-    public void onGetUserProfileClicked() { //View view dans l'argument
-        if (mAccessToken == null) {
-            final Snackbar snackbar = Snackbar.make(findViewById(R.id.activity_spotify), R.string.warning_need_token, Snackbar.LENGTH_SHORT);
-            snackbar.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
-            snackbar.show();
-            return;
-        }
+    public void sendSearchRequest(){
+        String editTextValue = String.valueOf(editText.getText());
+        editTextValue.replaceAll(" ", "%20");
 
         final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/search?q=pitbull%20booba&type=track&limit=1")
+                .url("https://api.spotify.com/v1/search?q="+editTextValue+ "&type=track&limit=1")
                 .addHeader("Authorization", "Bearer " + mAccessToken)
-                .addHeader("q", "pitbull%20booba")
+                .addHeader("q", editTextValue)
                 .addHeader("type", "track")
                 .build();
 
@@ -112,6 +112,19 @@ public class SpotifyActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+
+    public void onGetUserProfileClicked() { //View view dans l'argument
+        if (mAccessToken == null) {
+            final Snackbar snackbar = Snackbar.make(findViewById(R.id.activity_spotify), R.string.warning_need_token, Snackbar.LENGTH_SHORT);
+            snackbar.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+            snackbar.show();
+            return;
+        }
+
+        sendSearchRequest();
     }
  /*   public void onRequestCodeClicked(View view) {
         final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.CODE);
@@ -183,14 +196,6 @@ public class SpotifyActivity extends AppCompatActivity {
 
 
     /*
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private static final String CLIENT_ID = "5b5e3a59e0ff47a6a30ad395c2bbe605";
     private static final String REDIRECT_URI = "sevenoclock://callback";

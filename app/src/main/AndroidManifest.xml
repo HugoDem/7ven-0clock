@@ -28,19 +28,14 @@
             android:name=".SpotifyActivity"
             android:label="@string/title_activity_spotify"
             android:configChanges="keyboardHidden|keyboard|orientation|screenSize">
+        </activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
 
     </application>
