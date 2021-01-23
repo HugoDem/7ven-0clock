@@ -1,23 +1,13 @@
 package com.isep.ii3510.a7ven0clock;
 
 import android.os.Bundle;
-
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Handler;
-import android.util.Log;
-import android.util.Pair;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +20,10 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -137,17 +131,17 @@ public class ClockFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
+        @Override
+        public void onPause() {
+            super.onPause();
+        }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateTimezoneView();
-        updateView();
-    }
+        @Override
+        public void onResume() {
+            super.onResume();
+            updateTimezoneView();
+            updateView();
+        }
 
     private void refreshTime(){
         Handler handler = new Handler();

@@ -1,13 +1,15 @@
 package com.isep.ii3510.a7ven0clock;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.os.Handler;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +26,15 @@ public class TimerFragment extends Fragment {
     private static TimerFragment timerInstance;
     private boolean spotConnection;
     private String mParam2;
+
+    private View view;
+    private Button startPauseButton, resetButton;
+    private EditText editTextForTime1, editTextForTime2;
+    private TextView timerTextView, point;
+
+    private boolean timerRunning = false;
+    CountDownTimer countDownTimer = null;
+    private long timeLeftInMillis = 0;
 
     public TimerFragment() {
         // Required empty public constructor
@@ -63,24 +74,89 @@ public class TimerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_timer, container, false);
+        view = inflater.inflate(R.layout.fragment_timer, container, false);
+
+        startPauseButton = view.findViewById(R.id.startPauseButton);
+        resetButton = view.findViewById(R.id.resetButton);
+
+        editTextForTime1 = view.findViewById(R.id.editTextForTime1);
+        editTextForTime2 = view.findViewById(R.id.editTextForTime2);
+
+        timerTextView = view.findViewById(R.id.timerTextView);
+        point = view.findViewById(R.id.point);
+
+        startPauseButton.setOnClickListener(this::startStopTimer);
+        resetButton.setOnClickListener(this::resetTimer);
+
+        return view;
     }
 
-    private void refreshTime(){
-        Handler handler = new Handler();
-        final Runnable r = new Runnable(){
-            @Override
-            public void run(){
-                updateTimer();
+    private void startStopTimer(View iView){
+        if(!timerRunning){
+            startPauseButton.setText("PAUSE");
+
+            editTextForTime1.setVisibility(View.INVISIBLE);
+            editTextForTime2.setVisibility(View.INVISIBLE);
+            point.setVisibility(View.INVISIBLE);
+
+            timerTextView.setVisibility(View.VISIBLE);
+
+            if(timeLeftInMillis == 0) {
+                String tmp = editTextForTime1.getText().toString();
+                long minutes = Long.parseLong(tmp);
+
+                tmp = editTextForTime2.getText().toString();
+                long seconds = Long.parseLong(tmp);
+
+                timeLeftInMillis = minutes * 60000 + seconds * 1000;
             }
-        };
+            countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    timeLeftInMillis = millisUntilFinished;
+                    long minutes = timeLeftInMillis / 60000;
+                    long seconds = (timeLeftInMillis % 60000) / 1000;
+                    String timeStr = (minutes < 10 ? "0"+ minutes : minutes) + ":" + (seconds < 10 ? "0"+ seconds : seconds);
+                    timerTextView.setText(timeStr);
+                }
 
-        handler.postDelayed(r, 1000);
+                @Override
+                public void onFinish() {
+
+                }
+            };
+
+            countDownTimer.start();
+            timerRunning = true;
+        }
+        else {
+            startPauseButton.setText("RESUME");
+            countDownTimer.cancel();
+            timerRunning = false;
+        }
     }
 
-    private void updateTimer(){
 
+    private void resetTimer(View iView){
+        startPauseButton.setText("START");
+
+        editTextForTime1.setVisibility(View.VISIBLE);
+        editTextForTime2.setVisibility(View.VISIBLE);
+        point.setVisibility(View.VISIBLE);
+
+        timerTextView.setVisibility(View.INVISIBLE);
+        timeLeftInMillis = 0;
+        countDownTimer.cancel();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
 }
