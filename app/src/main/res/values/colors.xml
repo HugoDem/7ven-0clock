@@ -16,4 +16,7 @@
     <color name="sacre_blue">#2D87C3</color>
     <color name="autre_blue">#1a2183</color>
     <color name="u_back">#1E3845FF</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
 </resources>

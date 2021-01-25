@@ -12,8 +12,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:foregroundGravity="center"
+<<<<<<< HEAD
         android:text="You can change the mode af the application : Dark mode or Light Mode"
     />
+=======
+        android:gravity="center"
+        android:text="Settings page." />
+
+    <Button
+        android:id="@+id/buttonOne"
+        android:layout_width="334dp"
+        android:layout_height="194dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Spotify options" />
+>>>>>>> 3624b947c49b464a0e92348d0f71349840b01a67
 
     <androidx.appcompat.widget.SwitchCompat
         android:textStyle="bold"
