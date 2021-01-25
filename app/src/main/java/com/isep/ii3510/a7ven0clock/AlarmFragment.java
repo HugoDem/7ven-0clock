@@ -1,8 +1,6 @@
 package com.isep.ii3510.a7ven0clock;
-
 import java.util.Timer;
 import java.util.TimerTask;
-
 import android.annotation.SuppressLint;
 import android.widget.TimePicker;
 import android.widget.TextView;
