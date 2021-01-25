@@ -13,76 +13,75 @@
 
         <AnalogClock
             android:id="@+id/analogClock1"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="206dp"
+            android:layout_height="201dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toTopOf="@+id/timeZoneRecyclerView"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.099" />
 
         <ListView
             android:id="@+id/listView"
-            android:layout_width="216dp"
-            android:layout_height="320dp"
+            android:layout_width="308dp"
+            android:layout_height="316dp"
             android:background="@color/white"
             android:elevation="50dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.082"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.832" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/timeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="171dp"
+            android:layout_height="53dp"
             android:layout_gravity="center"
-            android:layout_marginStart="28dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
             android:foregroundGravity="center"
             android:gravity="center"
-            android:text="Time for the win"
-            android:textSize="20sp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/dateView"
-            app:layout_constraintStart_toEndOf="@+id/analogClock1" />
+            android:text="00:00:00 PM"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/analogClock1" />
 
         <TextView
             android:id="@+id/dateView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
-            android:layout_marginStart="28dp"
-            android:layout_marginBottom="65dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="20dp"
             android:foregroundGravity="center"
             android:gravity="center"
             android:text="Date for the win"
-            android:textSize="15sp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/timeZoneRecyclerView"
-            app:layout_constraintStart_toEndOf="@+id/analogClock1" />
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/analogClock1" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/timeZoneRecyclerView"
-            android:layout_width="325dp"
-            android:layout_height="204dp"
-            android:layout_marginBottom="24dp"
+            android:layout_width="399dp"
+            android:layout_height="310dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingBtn"
-            android:layout_width="60dp"
-            android:layout_height="55dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="228dp"
-            android:elevation="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="25dp"
             android:src="@drawable/more_time"
-            app:fabSize="normal"
+            android:tooltipText="Add Timezone"
+            android:elevation="20dp"
+            app:fabCustomSize="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

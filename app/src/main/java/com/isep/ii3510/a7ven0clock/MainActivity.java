@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 tag = "CLOCK";
                 break;
             case R.id.navigation_alarm:
-                activeFragment = AlarmFragment.newInstance("","");
+                activeFragment = AlarmFragment.getInstance();
                 tag = "ALARM";
                 break;
             case R.id.navigation_timer:
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 tag = "TIMER";
                 break;
             case R.id.navigation_settings:
-                activeFragment = SettingsFragment.newInstance("","");
+                activeFragment = SettingsFragment.getInstance();
                 tag = "SETTINGS";
                 break;
         }

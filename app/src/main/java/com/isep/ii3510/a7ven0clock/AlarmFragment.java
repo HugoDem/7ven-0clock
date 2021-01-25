@@ -1,39 +1,33 @@
 package com.isep.ii3510.a7ven0clock;
-import java.util.Timer;
-import java.util.TimerTask;
-import android.annotation.SuppressLint;
-import android.widget.TimePicker;
-import android.widget.TextView;
+
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
+import java.util.Timer;
+import java.util.TimerTask;
 
-
-
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AlarmFragment#newInstance} factory method to
+ * Use the {@link AlarmFragment#getInstance} factory method to
  * create an instance of this fragment.
  */
 public class AlarmFragment extends Fragment {
 
-    TimePicker alarmTime;
-    TextView currentTime;
+    private static AlarmFragment alarmFragment = null;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private TimePicker alarmTime;
+    private TextView currentTime;
+    private Button alarmButton;
 
     public AlarmFragment() {
         // Required empty public constructor
@@ -41,32 +35,21 @@ public class AlarmFragment extends Fragment {
 
     /**
      * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * this fragment.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment AlarmFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static AlarmFragment newInstance(String param1, String param2) {
-        AlarmFragment fragment = new AlarmFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static AlarmFragment getInstance() {
+        if(alarmFragment == null)
+            alarmFragment = new AlarmFragment();
+        return alarmFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
-    @SuppressLint("CutPasteId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -74,8 +57,24 @@ public class AlarmFragment extends Fragment {
 
         alarmTime = (TimePicker) view.findViewById(R.id.alarmToggle);
         currentTime = (TextView) view.findViewById(R.id.alarmText);
-        final Ringtone r = RingtoneManager.getRingtone(getContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
+        alarmButton = (Button) view.findViewById(R.id.alarmButton);
 
+        alarmButton.setOnClickListener(v -> setAlarmOn());
+
+        return view;
+    }
+
+    public void setAlarmOn(){
+        //final Ringtone r = RingtoneManager.getRingtone(getContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
+
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        assert notification != null;
+        Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
+        r.play();
+
+        currentTime.setText("Set alarm on:"+AlarmTime());
+
+        //r.play();
         Timer t = new Timer();
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -87,29 +86,27 @@ public class AlarmFragment extends Fragment {
                 }
             }
         }, 0, 1000);
-
-        return view;
     }
 
     public String AlarmTime(){
 
-        Integer alarmHours = alarmTime.getCurrentHour();
-        Integer alarmMinutes = alarmTime.getCurrentMinute();
+        int alarmHours = alarmTime.getHour();
+        int alarmMinutes = alarmTime.getMinute();
         String stringAlarmMinutes;
 
         if (alarmMinutes<10){
             stringAlarmMinutes = "0";
-            stringAlarmMinutes = stringAlarmMinutes.concat(alarmMinutes.toString());
+            stringAlarmMinutes = stringAlarmMinutes.concat(Integer.toString(alarmMinutes));
         }else{
-            stringAlarmMinutes = alarmMinutes.toString();
+            stringAlarmMinutes = Integer.toString(alarmMinutes);
         }
         String stringAlarmTime;
 
         if(alarmHours>12){
             alarmHours = alarmHours - 12;
-            stringAlarmTime = alarmHours.toString().concat(":").concat(stringAlarmMinutes).concat(" PM");
+            stringAlarmTime = Integer.toString(alarmHours).concat(":").concat(stringAlarmMinutes).concat(" PM");
         }else{
-            stringAlarmTime = alarmHours.toString().concat(":").concat(stringAlarmMinutes).concat(" AM");
+            stringAlarmTime = Integer.toString(alarmHours).concat(":").concat(stringAlarmMinutes).concat(" AM");
         }
         return stringAlarmTime;
     }

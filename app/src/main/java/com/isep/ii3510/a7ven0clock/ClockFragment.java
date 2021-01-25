@@ -32,14 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class ClockFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String IS_CONNECTED = "isConnected";
-    private static final String ARG_PARAM2 = "param2";
-
     private static ClockFragment clockInstance;
-    private boolean isConnected;
-    private String mParam2; //useless for now
 
     private TextView timeView;
     private TextView dateView;
@@ -61,34 +54,17 @@ public class ClockFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param spotConnection boolean to represent if the user is connected to spot or not
-     * @param param2 Parameter 2.
      * @return A new instance of fragment ClockFragment.
      */
-    public static ClockFragment getInstance(boolean spotConnection, String param2) {
-        if(clockInstance == null){
+    public static ClockFragment getInstance() {
+        if(clockInstance == null)
             clockInstance = new ClockFragment();
-            Bundle args = new Bundle();
-            args.putBoolean(IS_CONNECTED, spotConnection);
-            args.putString(ARG_PARAM2, param2);
-            clockInstance.setArguments(args);
-
-            return clockInstance;
-        }
         return clockInstance;
-    }
-
-    public static ClockFragment getInstance(){
-        return getInstance(false, "");
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            isConnected = getArguments().getBoolean(IS_CONNECTED);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
         refreshTime();
     }
@@ -116,15 +92,18 @@ public class ClockFragment extends Fragment {
         zoneListView.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_multiple_choice, zoneNames));
 
         floatingBtn = (FloatingActionButton) view.findViewById(R.id.floatingBtn);
+        floatingBtn.setImageResource(R.drawable.more_time);
         floatingBtn.setOnClickListener(view -> {
             if(zoneListView.isShown()) {
                 zoneListView.setVisibility(View.INVISIBLE);
                 updateTimezoneView();
                 floatingBtn.setImageResource(R.drawable.more_time);
+                floatingBtn.setTooltipText("Add Timezone");
             }
             else {
                 zoneListView.setVisibility(View.VISIBLE);
                 floatingBtn.setImageResource(R.drawable.check_icon);
+                floatingBtn.setTooltipText("Validate");
             }
         });
 
