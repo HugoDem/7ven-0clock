@@ -2,8 +2,8 @@ package com.isep.ii3510.a7ven0clock;
 
 import android.media.Ringtone;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -65,22 +69,18 @@ public class AlarmFragment extends Fragment {
     }
 
     public void setAlarmOn(){
-        //final Ringtone r = RingtoneManager.getRingtone(getContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
-
-        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        assert notification != null;
-        Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
-        r.play();
-
+        final Ringtone r = RingtoneManager.getRingtone(getContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
         currentTime.setText("Set alarm on:"+AlarmTime());
 
-        //r.play();
+        DateTimeFormatter shortTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withZone(ZoneId.systemDefault());
+
         Timer t = new Timer();
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (currentTime.getText().toString().equals(AlarmTime())){
+                if (shortTimeFormatter.format(LocalDateTime.now()).equals(AlarmTime())){
                     r.play();
+                    Log.d("SONNERIE","RIIIIIIIIIIIIIIIIIIINNNNNNNNNNNGGGG !!!!!!!!!");
                 }else{
                     r.stop();
                 }
