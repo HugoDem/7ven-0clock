@@ -1,7 +1,10 @@
 package com.isep.ii3510.a7ven0clock;
 
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +24,16 @@ public class TimerFragment extends Fragment {
     private static TimerFragment timerInstance;
 
     private View view;
-    private Button startPauseButton, resetButton;
+    private Button startPauseButton, resetButton, stopRingingBtn;
     private EditText editTextForTime1, editTextForTime2;
     private TextView timerTextView, point;
 
     private boolean timerRunning = false;
-    CountDownTimer countDownTimer = null;
+    private CountDownTimer countDownTimer = null;
+    private Ringtone ringtone = null;
     private long timeLeftInMillis = 0;
+
+    private SpotifyPlayer spotPlayer = null;
 
     public TimerFragment() {
         // Required empty public constructor
@@ -58,6 +64,7 @@ public class TimerFragment extends Fragment {
 
         startPauseButton = view.findViewById(R.id.startPauseButton);
         resetButton = view.findViewById(R.id.resetButton);
+        stopRingingBtn = view.findViewById(R.id.stopRingButton);
 
         editTextForTime1 = view.findViewById(R.id.editTextForTime1);
         editTextForTime2 = view.findViewById(R.id.editTextForTime2);
@@ -67,6 +74,12 @@ public class TimerFragment extends Fragment {
 
         startPauseButton.setOnClickListener(this::startStopTimer);
         resetButton.setOnClickListener(this::resetTimer);
+        stopRingingBtn.setOnClickListener(this::stopRinging);
+
+        ringtone = RingtoneManager.getRingtone(getContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
+
+        spotPlayer = new SpotifyPlayer(getContext());
+        Log.d("player connected", ""+spotPlayer.isConnected());
 
         return view;
     }
@@ -102,7 +115,9 @@ public class TimerFragment extends Fragment {
 
                 @Override
                 public void onFinish() {
-
+                    //ringtone.play();
+                    stopRingingBtn.setVisibility(View.VISIBLE);
+                    spotPlayer.play("spotify:track:3AQ5aIqSaqEAGvcrK8SDAA");
                 }
             };
 
@@ -126,13 +141,20 @@ public class TimerFragment extends Fragment {
 
         timerTextView.setVisibility(View.INVISIBLE);
         timeLeftInMillis = 0;
+        timerRunning = false;
         countDownTimer.cancel();
+    }
+
+    private void stopRinging(View iView) {
+        //ringtone.stop();
+        spotPlayer.stop();
+        stopRingingBtn.setVisibility(View.INVISIBLE);
+        resetTimer(view);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
     }
 
     @Override
@@ -158,7 +180,8 @@ public class TimerFragment extends Fragment {
 
                 @Override
                 public void onFinish() {
-
+                    ringtone.play();
+                    stopRingingBtn.setVisibility(View.VISIBLE);
                 }
             }.start();
         }

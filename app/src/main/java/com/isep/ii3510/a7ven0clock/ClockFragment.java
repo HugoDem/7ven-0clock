@@ -110,17 +110,17 @@ public class ClockFragment extends Fragment {
         return view;
     }
 
-        @Override
-        public void onPause() {
-            super.onPause();
-        }
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
-        @Override
-        public void onResume() {
-            super.onResume();
-            updateTimezoneView();
-            updateView();
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateTimezoneView();
+        updateView();
+    }
 
     private void refreshTime(){
         Handler handler = new Handler();
