@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -24,6 +26,9 @@ import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -47,9 +52,13 @@ public class SpotifyActivity extends AppCompatActivity {
     private String mAccessCode;
     private Call mCall;
 
+
     // Activity parameters
     private EditText editText;
     List<String> uri = new ArrayList<>();
+    TrackAdapter myAdapter = new TrackAdapter();
+    private RecyclerView trackRecyclerView;
+    private JSONArray items = new JSONArray();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +68,15 @@ public class SpotifyActivity extends AppCompatActivity {
                 Locale.US, "Spotify Auth Sample %s", com.spotify.sdk.android.auth.BuildConfig.VERSION_NAME));
 
         editText = findViewById(R.id.editText);
+        trackRecyclerView = findViewById(R.id.trackRecyclerView);
+
+        for(int i = 0; i < 20; i++){
+            items.put(new JSONObject());
+        }
+
+        updateTrackView(items,1);
+        trackRecyclerView.setVisibility(View.INVISIBLE);
+
     }
 
     public void onRequestTokenClicked(View view) {
@@ -88,11 +106,15 @@ public class SpotifyActivity extends AppCompatActivity {
         } else if (AUTH_CODE_REQUEST_CODE == requestCode) {
 
             mAccessCode = response.getCode();
-            onGetUserProfileClicked();
+            try {
+                onGetUserProfileClicked();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void onGetUserProfileClicked() { //View view dans l'argument
+    public void onGetUserProfileClicked() throws InterruptedException { //View view dans l'argument
         if (mAccessToken == null) {
             final Snackbar snackbar = Snackbar.make(findViewById(R.id.activity_spotify), R.string.warning_need_token, Snackbar.LENGTH_SHORT);
             snackbar.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
@@ -100,11 +122,16 @@ public class SpotifyActivity extends AppCompatActivity {
             return;
         }
         sendSearchRequest();
+        if(items!=null){
+            myAdapter.setItems(items);
+            trackRecyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
-    public void sendSearchRequest(){
+    public void sendSearchRequest() throws InterruptedException {
         String editTextValue = String.valueOf(editText.getText());
         editTextValue.replaceAll(" ", "%20");
+        //Log.d("Text request : ", "")
 
         final Request request = new Request.Builder()
                 .url("https://api.spotify.com/v1/search?q="+editTextValue+ "&type=track")
@@ -129,12 +156,8 @@ public class SpotifyActivity extends AppCompatActivity {
 
                     Log.d("reponse",jsonObject.getString("tracks"));
 
-                    JSONArray items = jsonObject.getJSONObject("tracks").getJSONArray("items");
-                    int nbItems = (int) jsonObject.getJSONObject("tracks").get("total");
-
-                    if(jsonObject.getJSONObject("tracks").get("limit") != null){
-                        nbItems = Math.min(nbItems, (int) jsonObject.getJSONObject("tracks").get("limit"));
-                    }
+                    items = jsonObject.getJSONObject("tracks").getJSONArray("items");
+                    int nbItems = items.length();
 
                     String outputStr = "";
                     for(int i = 0; i < nbItems; i++){
@@ -144,13 +167,13 @@ public class SpotifyActivity extends AppCompatActivity {
                         uri.add(items.getJSONObject(i).getString("uri"));
                         outputStr += items.getJSONObject(i).getString("uri")+"\n";
                     }
-
-                    setResponse(outputStr);
+                    //récupérer outputStr
                 } catch (JSONException e) {
                     setResponse("Failed to parse data: " + e);
                 }
             }
         });
+        Thread.sleep(1000);
     }
 
     private void setResponse(final String text) {
@@ -172,7 +195,18 @@ public class SpotifyActivity extends AppCompatActivity {
 
     protected void onDestroy() {
         cancelCall();
+
         super.onDestroy();
+    }
+
+    private int updateTrackView(JSONArray items, int nbItems){
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        myAdapter = new TrackAdapter(this, items, nbItems);
+        trackRecyclerView.setAdapter(myAdapter);
+        trackRecyclerView.setLayoutManager(layoutManager);
+
+        return 1;
     }
 
 }
