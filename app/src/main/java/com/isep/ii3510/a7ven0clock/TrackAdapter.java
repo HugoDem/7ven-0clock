@@ -72,6 +72,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackToDispl
             if(item.names() == null) return;
 
             holder.trackView.setText(getTrackName(item));
+            System.out.println("TRACK NAME : "+ getTrackName(item)  );
             holder.artistsView.setText(getArtistsNames(item));
 
         } catch (JSONException e) {
