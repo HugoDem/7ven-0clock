@@ -31,7 +31,9 @@ public class AlarmFragment extends Fragment {
 
     private TimePicker alarmTime;
     private TextView currentTime;
-    private Button alarmButton;
+    private Button alarmButton, stopRingingBtn;
+
+    private SpotifyPlayer spotPlayer = null;
 
     public AlarmFragment() {
         // Required empty public constructor
@@ -62,8 +64,12 @@ public class AlarmFragment extends Fragment {
         alarmTime = (TimePicker) view.findViewById(R.id.alarmToggle);
         currentTime = (TextView) view.findViewById(R.id.alarmText);
         alarmButton = (Button) view.findViewById(R.id.alarmButton);
+        stopRingingBtn = (Button) view.findViewById(R.id.stopRingButton);
 
         alarmButton.setOnClickListener(v -> setAlarmOn());
+
+        spotPlayer = new SpotifyPlayer(getContext());
+        Log.d("player connected", ""+spotPlayer.isConnected());
 
         return view;
     }
@@ -73,19 +79,26 @@ public class AlarmFragment extends Fragment {
         currentTime.setText("Set alarm on:"+AlarmTime());
 
         DateTimeFormatter shortTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withZone(ZoneId.systemDefault());
-
         Timer t = new Timer();
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (shortTimeFormatter.format(LocalDateTime.now()).equals(AlarmTime())){
-                    r.play();
-                    Log.d("SONNERIE","RIIIIIIIIIIIIIIIIIIINNNNNNNNNNNGGGG !!!!!!!!!");
-                }else{
-                    r.stop();
+                    //r.play();
+                    spotPlayer.play("spotify:track:3AQ5aIqSaqEAGvcrK8SDAA");
+
+                } else {
+                    //r.stop();
+                    spotPlayer.stop();
                 }
             }
         }, 0, 1000);
+    }
+
+    private void stopRinging(View iView) {
+        //ringtone.stop();
+        spotPlayer.stop();
+        stopRingingBtn.setVisibility(View.INVISIBLE);
     }
 
     public String AlarmTime(){

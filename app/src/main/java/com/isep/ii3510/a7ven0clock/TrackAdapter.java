@@ -1,52 +1,40 @@
 package com.isep.ii3510.a7ven0clock;
 
 import android.content.Context;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.HashMap;
-import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackToDisplay>  {
     private JSONArray items; // will contain all items of search request (each item is a track)
-    private int nbItems;
     private Context context;
 
     public static class TrackToDisplay extends RecyclerView.ViewHolder {
         TextView trackView;
         TextView artistsView;
+        ConstraintLayout layout;
 
         public TrackToDisplay(View v){
             super(v);
             trackView = v.findViewById(R.id.trackRecycleView);
             artistsView = v.findViewById(R.id.artistsRecycleView);
+            layout = v.findViewById(R.id.trackLayout);
         }
     }
 
     public TrackAdapter(){};
 
-    public TrackAdapter(Context iContext, JSONArray myItems, int myNbItems) {
+    public TrackAdapter(Context iContext, JSONArray myItems) {
         items = myItems;
-        nbItems = myNbItems;
         context = iContext;
     }
 
@@ -60,6 +48,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackToDispl
     public TrackAdapter.TrackToDisplay onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.track_display, parent, false);
+
         return new TrackAdapter.TrackToDisplay(view);
     }
 
@@ -109,7 +98,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackToDispl
 
     @Override
     public int getItemCount() {
-        return nbItems;
+        return items.length();
     }
 
 }

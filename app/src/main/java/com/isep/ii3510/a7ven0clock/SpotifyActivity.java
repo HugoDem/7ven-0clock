@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -74,7 +72,10 @@ public class SpotifyActivity extends AppCompatActivity {
             items.put(new JSONObject());
         }
 
-        updateTrackView(items,1);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        myAdapter = new TrackAdapter(this, items);
+        trackRecyclerView.setAdapter(myAdapter);
+        trackRecyclerView.setLayoutManager(layoutManager);
         trackRecyclerView.setVisibility(View.INVISIBLE);
 
     }
@@ -206,14 +207,13 @@ public class SpotifyActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private int updateTrackView(JSONArray items, int nbItems){
+    private void updateTrackView(JSONArray items){
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        myAdapter = new TrackAdapter(this, items, nbItems);
+        myAdapter = new TrackAdapter(this, items);
         trackRecyclerView.setAdapter(myAdapter);
         trackRecyclerView.setLayoutManager(layoutManager);
 
-        return 1;
     }
 
 }

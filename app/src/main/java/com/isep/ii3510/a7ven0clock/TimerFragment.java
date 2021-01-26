@@ -1,9 +1,11 @@
 package com.isep.ii3510.a7ven0clock;
 
+import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +26,7 @@ public class TimerFragment extends Fragment {
     private static TimerFragment timerInstance;
 
     private View view;
-    private Button startPauseButton, resetButton, stopRingingBtn;
+    private Button startPauseButton, resetButton, stopRingingBtn, startSpotBtn;
     private EditText editTextForTime1, editTextForTime2;
     private TextView timerTextView, point;
 
@@ -65,6 +67,7 @@ public class TimerFragment extends Fragment {
         startPauseButton = view.findViewById(R.id.startPauseButton);
         resetButton = view.findViewById(R.id.resetButton);
         stopRingingBtn = view.findViewById(R.id.stopRingButton);
+        startSpotBtn = view.findViewById(R.id.startSpotActivity);
 
         editTextForTime1 = view.findViewById(R.id.editTextForTime1);
         editTextForTime2 = view.findViewById(R.id.editTextForTime2);
@@ -75,6 +78,7 @@ public class TimerFragment extends Fragment {
         startPauseButton.setOnClickListener(this::startStopTimer);
         resetButton.setOnClickListener(this::resetTimer);
         stopRingingBtn.setOnClickListener(this::stopRinging);
+        stopRingingBtn.setOnClickListener(this::startSpotActivity);
 
         ringtone = RingtoneManager.getRingtone(getContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
 
@@ -82,6 +86,12 @@ public class TimerFragment extends Fragment {
         Log.d("player connected", ""+spotPlayer.isConnected());
 
         return view;
+    }
+
+    private void startSpotActivity(View view) {
+        Intent spotifyActivityIntent = new Intent(getActivity(), SpotifyActivity.class);
+        spotifyActivityIntent.putExtra("SpotifyPlayer", (Parcelable) spotPlayer);
+        startActivity(spotifyActivityIntent);
     }
 
     private void startStopTimer(View iView){
