@@ -10,13 +10,14 @@
         android:id="@+id/alarmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="20dp"
         android:text="Set alarm on"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alarmToggle" />
 
     <Button
+<<<<<<< HEAD
         android:id="@+id/stopAlarmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,6 +27,18 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alarmToggle" />
+=======
+        android:id="@+id/stopRingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="160dp"
+        android:layout_marginBottom="156dp"
+        android:onClick="stopRinging"
+        android:text="Stop"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+>>>>>>> a1942f404746fbfbf72324290345011cfa9798f8
 
     <TextView
         android:id="@+id/alarmText"
@@ -35,7 +48,11 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
+<<<<<<< HEAD
         android:layout_marginTop="76dp"
+=======
+        android:layout_marginTop="16dp"
+>>>>>>> a1942f404746fbfbf72324290345011cfa9798f8
         android:text="I AM TEXT"
         android:textAppearance="?android:attr/textAppearanceLarge"
         app:layout_constraintStart_toStartOf="@+id/alarmButton"
@@ -45,7 +62,11 @@
         android:id="@+id/alarmToggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_marginTop="70dp"
+=======
+        android:layout_marginTop="4dp"
+>>>>>>> a1942f404746fbfbf72324290345011cfa9798f8
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,14 +1,9 @@
 package com.isep.ii3510.a7ven0clock;
 
 import android.content.Context;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.time.LocalDateTime;
@@ -19,10 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
-// TODO: TOUT CHANGER -> will be used for RecyclerView
 
 public class TimeZoneAdapter extends RecyclerView.Adapter<TimeZoneAdapter.TimezoneToDisplay> {
     private List<String> mDataset; // will contain all the ids of the zones to display

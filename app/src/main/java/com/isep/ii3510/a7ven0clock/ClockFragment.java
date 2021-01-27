@@ -110,26 +110,21 @@ public class ClockFragment extends Fragment {
         return view;
     }
 
-        @Override
-        public void onPause() {
-            super.onPause();
-        }
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
-        @Override
-        public void onResume() {
-            super.onResume();
-            updateTimezoneView();
-            updateView();
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateTimezoneView();
+        updateView();
+    }
 
     private void refreshTime(){
         Handler handler = new Handler();
-        final Runnable r = new Runnable(){
-            @Override
-            public void run(){
-                updateView();
-            }
-        };
+        final Runnable r = this::updateView;
 
         handler.postDelayed(r, 1000);
     }
@@ -160,8 +155,6 @@ public class ClockFragment extends Fragment {
             refreshTime();
         }
     }
-
-    // TODO : Add the different zones in sharedPreferences
 
     private int updateTimezoneView(){
 

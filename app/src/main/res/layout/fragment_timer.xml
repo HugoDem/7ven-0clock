@@ -39,6 +39,31 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:backgroundTint="@color/red"/>
 
+        <Button
+            android:id="@+id/stopRingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="160dp"
+            android:layout_marginBottom="128dp"
+            android:onClick="stopRinging"
+            android:text="Stop"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/startSpotActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="56dp"
+            android:onClick="startSpotActivity"
+            android:text="Select music to play"
+            android:textSize="20dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
             android:layout_width="287dp"

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="10sp"
-            tools:text="Line 1\nLine 2\nLine 3" />
+            tools:text="" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,6 +53,23 @@
                 android:text="@string/btn_get_profile"/>
 
 
+
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trackRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.wear.widget.BoxInsetLayout>
