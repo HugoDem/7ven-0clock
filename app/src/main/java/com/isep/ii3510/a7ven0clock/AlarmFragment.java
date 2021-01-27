@@ -15,11 +15,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
-=======
->>>>>>> a1942f404746fbfbf72324290345011cfa9798f8
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,21 +32,14 @@ public class AlarmFragment extends Fragment {
     private static AlarmFragment alarmFragment = null;
     private TimePicker alarmTime;
     private TextView currentTime;
-<<<<<<< HEAD
-    private Button alarmButton;
+    private Button alarmButton, stopRingingBtn;
     List<String> alarms = new ArrayList<>();
 
-=======
-    private Button alarmButton, stopRingingBtn;
-
     private SpotifyPlayer spotPlayer = null;
->>>>>>> a1942f404746fbfbf72324290345011cfa9798f8
 
     public AlarmFragment() {
         // Required empty public constructor
     }
-
-
 
     /**
      * Use this factory method to create a new instance of
@@ -79,72 +69,44 @@ public class AlarmFragment extends Fragment {
         alarmButton = (Button) view.findViewById(R.id.alarmButton);
         stopRingingBtn = (Button) view.findViewById(R.id.stopRingButton);
 
-<<<<<<< HEAD
-=======
         alarmButton.setOnClickListener(v -> setAlarmOn());
 
         spotPlayer = new SpotifyPlayer(getContext());
         Log.d("player connected", ""+spotPlayer.isConnected());
 
->>>>>>> a1942f404746fbfbf72324290345011cfa9798f8
         return view;
     }
 
     public void setAlarmOn(){
-<<<<<<< HEAD
-        //final Ringtone r = RingtoneManager.getRingtone(getContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
-
-        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        assert notification != null;
-        Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
-        r.play();
+        final Ringtone r = RingtoneManager.getRingtone(getContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
 
         alarms.add(AlarmTime());
 
-=======
-        final Ringtone r = RingtoneManager.getRingtone(getContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
->>>>>>> a1942f404746fbfbf72324290345011cfa9798f8
         currentTime.setText("Set alarm on:"+AlarmTime());
         DateTimeFormatter shortTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withZone(ZoneId.systemDefault());
 
-
-        DateTimeFormatter shortTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withZone(ZoneId.systemDefault());
         Timer t = new Timer();
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-<<<<<<< HEAD
-
                 for(String alarm : alarms){
                     if (shortTimeFormatter.format(LocalDateTime.now()).equals(alarm)){
                         r.play();
-
-                    }else{
+                        spotPlayer.play("spotify:track:3AQ5aIqSaqEAGvcrK8SDAA");
+                        stopRingingBtn.setVisibility(View.VISIBLE);
+                    }else {
                         r.stop();
                     }
-=======
-                if (shortTimeFormatter.format(LocalDateTime.now()).equals(AlarmTime())){
-                    //r.play();
-                    spotPlayer.play("spotify:track:3AQ5aIqSaqEAGvcrK8SDAA");
-
-                } else {
-                    //r.stop();
-                    spotPlayer.stop();
->>>>>>> a1942f404746fbfbf72324290345011cfa9798f8
                 }
-
             }
         }, 0, 1000);
     }
 
-<<<<<<< HEAD
-=======
     private void stopRinging(View iView) {
         //ringtone.stop();
         spotPlayer.stop();
         stopRingingBtn.setVisibility(View.INVISIBLE);
     }
->>>>>>> a1942f404746fbfbf72324290345011cfa9798f8
 
     public String AlarmTime(){
 
