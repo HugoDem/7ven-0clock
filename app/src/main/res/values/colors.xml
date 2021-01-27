@@ -9,11 +9,13 @@
 
     <color name="black">#00000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="orange">#E4AC3D</color>
+    <color name="green">#40E210</color>
+    <color name="red">#FF981D2C</color>
 
     <color name="colorPrimary">#FFFFFFFF</color>
     <color name="colorPrimaryDark">#FFFFFFFF</color>
     <color name="colorAccent">#FFFFFFFF</color>
-    <color name="textColor">#FF000000</color>
 
     <color name="sacre_blue">#2D87C3</color>
     <color name="autre_blue">#1a2183</color>

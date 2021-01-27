@@ -9,7 +9,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="642dp"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:background="#00000000">
 
         <AnalogClock
             android:id="@+id/analogClock1"
@@ -21,7 +22,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.099" />
+            app:layout_constraintVertical_bias="0.099"
+            android:layout_marginTop="50dp"/>
 
         <ListView
             android:id="@+id/listView"
@@ -36,7 +38,7 @@
         <TextView
             android:id="@+id/timeView"
             android:layout_width="171dp"
-            android:layout_height="53dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:layout_marginTop="15dp"
@@ -44,6 +46,7 @@
             android:gravity="center"
             android:text="00:00:00 PM"
             android:textSize="30sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/analogClock1" />
 
@@ -58,6 +61,7 @@
             android:gravity="center"
             android:text="Date for the win"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/analogClock1" />
 
@@ -83,7 +87,8 @@
             android:elevation="20dp"
             app:fabCustomSize="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:backgroundTint="@color/orange"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

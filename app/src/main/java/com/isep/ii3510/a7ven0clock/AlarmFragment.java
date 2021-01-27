@@ -11,6 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,14 +30,17 @@ import androidx.fragment.app.Fragment;
 public class AlarmFragment extends Fragment {
 
     private static AlarmFragment alarmFragment = null;
-
     private TimePicker alarmTime;
     private TextView currentTime;
     private Button alarmButton;
+    List<String> alarms = new ArrayList<>();
+
 
     public AlarmFragment() {
         // Required empty public constructor
     }
+
+
 
     /**
      * Use this factory method to create a new instance of
@@ -50,6 +59,7 @@ public class AlarmFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -58,8 +68,6 @@ public class AlarmFragment extends Fragment {
         alarmTime = (TimePicker) view.findViewById(R.id.alarmToggle);
         currentTime = (TextView) view.findViewById(R.id.alarmText);
         alarmButton = (Button) view.findViewById(R.id.alarmButton);
-
-        alarmButton.setOnClickListener(v -> setAlarmOn());
 
         return view;
     }
@@ -72,21 +80,31 @@ public class AlarmFragment extends Fragment {
         Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
         r.play();
 
+        alarms.add(AlarmTime());
+
         currentTime.setText("Set alarm on:"+AlarmTime());
+        DateTimeFormatter shortTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withZone(ZoneId.systemDefault());
+
 
         //r.play();
         Timer t = new Timer();
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (currentTime.getText().toString().equals(AlarmTime())){
-                    r.play();
-                }else{
-                    r.stop();
+
+                for(String alarm : alarms){
+                    if (shortTimeFormatter.format(LocalDateTime.now()).equals(alarm)){
+                        r.play();
+
+                    }else{
+                        r.stop();
+                    }
                 }
+
             }
         }, 0, 1000);
     }
+
 
     public String AlarmTime(){
 
@@ -110,4 +128,7 @@ public class AlarmFragment extends Fragment {
         }
         return stringAlarmTime;
     }
+
 }
+
+

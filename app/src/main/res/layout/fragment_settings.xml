@@ -7,13 +7,6 @@
     android:gravity="center">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:foregroundGravity="center"
-        android:text="You can change the mode af the application : Dark mode or Light Mode"
-    />
 
     <Button
         android:id="@+id/buttonOne"
